@@ -1,0 +1,396 @@
+#+TITLE: Emacs Literate Configuration
+#+AUTHOR: Oscar Eriksson
+#+PROPERTY: header-args :tangle yes :results silent
+
+* Use-Package
+  We start by configuring use-package
+
+  We want to ensure that all packages are installed
+  #+BEGIN_SRC emacs-lisp
+  (setq use-package-always-ensure t)
+  #+END_SRC
+
+  These packages allows us the diminish and bind macro with use-package
+  #+BEGIN_SRC emacs-lisp
+  (use-package diminish)
+
+  (use-package bind-key)
+  #+END_SRC
+
+* Editing
+  Prefer spaces rather than tabs
+  #+BEGIN_SRC emacs-lisp
+    (set-default 'indent-tabs-mode nil)
+  #+END_SRC
+
+  Tabsize of 2
+  #+BEGIN_SRC emacs-lisp
+    (setq tab-width 2)
+  #+END_SRC
+
+  Auto insert matching pair
+  #+BEGIN_SRC emacs-lisp
+  (electric-pair-mode 1)
+  #+END_SRC
+
+  Make movement respect CamelCase and snake_case
+  #+BEGIN_SRC emacs-lisp
+  (global-subword-mode 1)
+  #+END_SRC
+
+  Overwrite selected text
+  #+BEGIN_SRC emacs-lisp
+  (delete-selection-mode 1)
+  #+END_SRC
+
+  Remember cursor position from last edit
+  #+BEGIN_SRC emacs-lisp
+  (save-place-mode 1)
+  #+END_SRC
+
+  Set UTF-8 as default encoding
+  #+BEGIN_SRC emacs-lisp
+  (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8)
+  #+END_SRC
+
+  Disable automatic backups
+  #+BEGIN_SRC emacs-lisp
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+  #+END_SRC
+
+  Automatically update buffer if underlying file changes
+  #+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode 1)
+  #+END_SRC
+
+  Yank at point instead of at click
+  #+BEGIN_SRC emacs-lisp
+  (setq mouse-yank-at-point t)
+  #+END_SRC
+
+  Ensure final newline
+  #+BEGIN_SRC emacs-lisp
+  (setq require-final-newline t)
+  #+END_SRC
+
+  Zap up to char
+  #+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
+  #+END_SRC
+
+  Transpose keymappings
+  #+BEGIN_SRC emacs-lisp
+    (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
+    (global-set-key (kbd "M-t l") 'transpose-lines)
+    (global-set-key (kbd "M-t w") 'transpose-words)
+    (global-set-key (kbd "M-t s") 'transpose-sexps)
+    (global-set-key (kbd "M-t p") 'transpose-params)
+  #+END_SRC
+
+** Company
+   We use Company for completion
+   #+BEGIN_SRC emacs-lisp
+     (use-package company
+       :diminish
+       (company-mode)
+       :custom
+       (company-dabbrev-downcase nil)
+       (company-idle-delay t)
+       (company-transformers '(company-sort-by-occurrence))
+       :config
+       (add-hook 'after-init-hook 'global-company-mode))
+   #+END_SRC
+
+** Yasnippet
+   And Yasnippet for snippets
+   #+BEGIN_SRC emacs-lisp
+     (use-package yasnippet
+       :init
+       (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+       :diminish (yas-minor-mode)
+       :config
+       (yas-global-mode)
+       (setq yas-prompt-functions
+	     (cons 'yas-ido-prompt
+		   (cl-delete 'yas-ido-prompt yas-prompt-functions)))
+       :bind
+       ("M-/" . company-yasnippet))
+   #+END_SRC
+
+** Editorconfig
+   Respect .eitorconfig files
+   #+BEGIN_SRC emacs-lisp
+     (use-package editorconfig
+       :diminish
+       (editorconfig-mode)
+       :config
+       (editorconfig-mode 1))
+   #+END_SRC
+* Search and Replace
+  Make space in isearch represent the following regexp
+  #+BEGIN_SRC emacs-lisp
+  (setq search-whitespace-regexp "[-_ \t\n\r]+")
+  #+END_SRC
+
+  Use regexp versions of search
+  #+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+  (global-set-key (kbd "C-M-s") 'isearch-forward)
+  (global-set-key (kbd "C-M-r") 'isearch-backward)
+  #+END_SRC
+
+** Grep
+   Make grep buffer editable
+   #+BEGIN_SRC emacs-lisp
+     (use-package wgrep
+       :bind (:map grep-mode-map
+		   ("C-c C-p" . wgrep-change-to-wgrep-mode))
+       :custom (wgrep-auto-save-buffer t))
+   #+END_SRC
+
+** Ag
+   Interface to Ag
+   #+BEGIN_SRC emacs-lisp
+     (use-package ag)
+
+     (use-package wgrep-ag
+       :bind (:map ag-mode-map
+		   ("C-c C-p" . wgrep-change-to-wgrep-mode)))
+   #+END_SRC
+
+* Sound and Appearance
+  Highlight current line
+  #+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode 1)
+  #+END_SRC
+
+  Show matching pair
+  #+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+  #+END_SRC
+
+  Display line numbers
+  #+BEGIN_SRC emacs-lisp
+  (global-display-line-numbers-mode 1)
+  #+END_SRC
+
+  Show cursors line and column position in modeline
+  #+BEGIN_SRC emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+  #+END_SRC
+
+  Wrap long lines at word boundaries
+  #+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode 1)
+  #+END_SRC
+
+  Show trailing whitespaces
+  #+BEGIN_SRC emacs-lisp
+  (setq-default show-trailing-whitespace t)
+  #+END_SRC
+
+  Hide some ui elements
+  #+BEGIN_SRC emacs-lisp
+  (menu-bar-mode -1)
+  (when (fboundp 'tool-bar-mode)
+      (tool-bar-mode -1))
+  (when (fboundp 'scroll-bar-mode)
+      (scroll-bar-mode -1))
+  (when (fboundp 'horizontal-scroll-bar-mode)
+      (horizontal-scroll-bar-mode -1))
+  #+END_SRC
+
+  Uniquify buffer names using standard POSIX paths
+  #+BEGIN_SRC emacs-lisp
+  (setq uniquify-buffer-name-style 'forward)
+  #+END_SRC
+
+  Use vsible rather than audible bell
+  #+BEGIN_SRC emacs-lisp
+  (setq visible-bell t)
+  #+END_SRC
+
+* Navigation
+  Save minibuffer history between sessions
+  #+BEGIN_SRC emacs-lisp
+    (savehist-mode 1)
+  #+END_SRC
+
+  Enable traversal of window configuration history
+  #+BEGIN_SRC emacs-lisp
+    (winner-mode 1)
+  #+END_SRC
+
+  Code folding
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'prog-mode-hook #'hs-minor-mode)
+  #+END_SRC
+
+** Ace-Window
+   We use ace-window for better window jumping
+   #+BEGIN_SRC emacs-lisp
+		 (use-package ace-window
+			 :bind
+			 (("C-x o" . ace-window))
+			 :custom
+			 (aw-dispatch-always nil))
+   #+END_SRC
+
+** IBuffer
+   Use IBuffer
+   #+BEGIN_SRC emacs-lisp
+   (global-set-key (kbd "C-x C-b") 'ibuffer)
+   #+END_SRC
+
+   Organize buffers according to project
+   #+BEGIN_SRC emacs-lisp
+     (use-package ibuffer-projectile
+     :init (add-hook 'ibuffer-hook #'ibuffer-projectile-set-filter-groups))
+   #+END_SRC
+
+** Ido
+   Show completions for select buffer and find-file in minibuffer
+   #+BEGIN_SRC emacs-lisp
+     (ido-mode 1)
+   #+END_SRC
+
+   Open file and buffer in selected window
+   #+BEGIN_SRC emacs-lisp
+     (setq ido-default-file-method 'selected-window)
+     (setq ido-default-buffer-method 'selected-window)
+   #+END_SRC
+
+   Stiff filter
+   #+BEGIN_SRC emacs-lisp
+     (setq ido-enable-flex-matching nil)
+   #+END_SRC
+
+   We want to use Ido everywhere
+   #+BEGIN_SRC emacs-lisp
+     (use-package ido-completing-read+
+       :config
+       (ido-ubiquitous-mode 1))
+   #+END_SRC
+
+   Alwasy create new buffer when filename doesn't correspond to file or directory
+   #+BEGIN_SRC emacs-lisp
+  (setq ido-create-new-buffer 'always)
+   #+END_SRC
+
+* Project settings
+  We use projectile to manage projects
+  #+BEGIN_SRC emacs-lisp
+    (use-package projectile
+      :diminish
+      (projectile-mode)
+      :custom
+      (projectile-use-git-grep t)
+      :bind
+      (([remap projectile-replace] . projectile-replace-regexp)
+       ([remap projectile-run-term] . terminal-here-project-launch))
+      :config
+      (projectile-mode 1)
+      (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map))
+  #+END_SRC
+* GIT
+  We use the Magit Git frontend
+  #+BEGIN_SRC emacs-lisp
+    (use-package magit)
+  #+END_SRC
+
+* Misc
+  Use y and n instead of yes and no
+  #+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  #+END_SRC
+
+  Disable annoying warnings
+  #+BEGIN_SRC emacs-lisp
+  (progn
+    (put 'narrow-to-region 'disabled nil)
+    (put 'narrow-to-page 'disabled nil)
+    (put 'upcase-region 'disabled nil)
+    (put 'downcase-region 'disabled nil)
+    (put 'erase-buffer 'disabled nil)
+    (put 'scroll-left 'disabled nil)
+    (put 'dired-find-alternate-file 'disabled nil)
+    )
+  #+END_SRC
+
+  We use amx to run extended commands
+  #+BEGIN_SRC emacs-lisp
+    (use-package amx
+      :config
+      (amx-mode)
+      :bind
+      ("C-x C-m" . amx))
+  #+END_SRC
+
+  Use a separate customs file
+  #+BEGIN_SRC emacs-lisp
+    (setq custom-file "~/.emacs.d/custom.el")
+    (load custom-file 'noerror)
+  #+END_SRC
+* Org
+  Don't ask if code block should be evaluated
+  #+BEGIN_SRC emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
+  #+END_SRC
+
+  Syntax color src code blocks
+  #+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+  #+END_SRC
+
+* Shell
+  Use C-l to clear shell buffer
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'shell-mode-hook
+              (lambda () (local-set-key (kbd "C-l") 'comint-clear-buffer)))
+  #+END_SRC
+
+* Terminal
+ Spawn external terminals
+ #+BEGIN_SRC emacs-lisp
+   (use-package terminal-here
+     :bind
+     (("C-x t" . terminal-here-launch)))
+ #+END_SRC
+* Languages
+  Language specific configurations
+
+** Modelyze
+   Major mode definition
+   #+BEGIN_SRC emacs-lisp
+     (require 'generic-x) ;; we need this
+     (define-generic-mode 'modelyze-mode
+       ;; one line comment
+       '("//" ("/*" . "*/"))
+
+       ;; keywords
+       '("if" "then" "else" "def" "fun" "match" "with" "include" "type")
+
+       ;; Faces
+       '()
+
+       ;; files to active modea
+       '("\\.moz$")
+       nil
+       "A mode for Modelyze files")
+   #+END_SRC
+
+   Error matching regexp
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'compilation-error-regexp-alist 'modelyze)
+     (add-to-list 'compilation-error-regexp-alist-alist
+                  '(modelyze "^\\(.+\\) \\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\) error: " 1 2 (3 . 4) 2))
+   #+END_SRC
+
+  Code folding
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'modelyze-mode-hook #'hs-minor-mode)
+  #+END_SRC

@@ -1,0 +1,7 @@
+*
+!.gitignore
+!emacs.org
+!init.el
+!/snippets/
+!/snippets/*
+!/snippets/**/*
