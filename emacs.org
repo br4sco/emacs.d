@@ -360,6 +360,18 @@
      :bind
      (("C-x t" . terminal-here-launch)))
  #+END_SRC
+
+ Copy paste in terminal
+ #+BEGIN_SRC emacs-lisp
+   (use-package xclip
+     :config
+     (xclip-mode 1))
+ #+END_SRC
+
+ Enable mouse support in terminal
+ #+BEGIN_SRC emacs-lisp
+   (xterm-mouse-mode 1)
+ #+END_SRC
 * Languages
   Language specific configurations
 
