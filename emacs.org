@@ -382,7 +382,13 @@
  #+END_SRC
 * Languages
   Language specific configurations
-
+** Ocaml
+   Setup opam enviroment in emacs
+   #+BEGIN_SRC emacs-lisp
+     (use-package opam
+       :config
+       (opam-init))
+   #+END_SRC
 ** Modelyze
    Major mode definition
    #+BEGIN_SRC emacs-lisp
