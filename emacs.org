@@ -389,7 +389,7 @@
        :config
        (opam-init))
    #+END_SRC
-** Modelyze
+** COMMENT Modelyze
    Major mode definition
    #+BEGIN_SRC emacs-lisp
      (require 'generic-x) ;; we need this
@@ -401,9 +401,13 @@
        '("if" "then" "else" "def" "fun" "match" "with" "include" "type")
 
        ;; Faces
-       '()
+       '(("\\_<\\(error\\)\\_>" . font-lock-warning-face)
+         ("\\_<\\(\\(?:fals\\|tru\\)e\\)\\_>" . font-lock-constant-face)
+         ("\\_<\\(Array\\|DAESolver\\|Map\\|NLEQSolver\\|Set\\|fst\\|peval\\|snd\\)\\_>" . font-lock-builtin-face)
+         ("\\_<<?\\(\\?\\|Bool\\|Int\\|Real\\|String\\)>?\\_>" . (1 font-lock-type-face))
+         ("!" . font-lock-negation-char-face))
 
-       ;; files to active modea
+       ;; files to active modelyze-mode
        '("\\.moz$")
        nil
        "A mode for Modelyze files")
