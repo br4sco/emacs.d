@@ -288,6 +288,7 @@
       :diminish
       (projectile-mode)
       :custom
+      (projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s \"%s\"")
       (projectile-use-git-grep t)
       :bind
       (([remap projectile-replace] . projectile-replace-regexp)
@@ -389,7 +390,7 @@
        :config
        (opam-init))
    #+END_SRC
-** COMMENT Modelyze
+** Modelyze
    Major mode definition
    #+BEGIN_SRC emacs-lisp
      (require 'generic-x) ;; we need this
