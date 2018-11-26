@@ -214,6 +214,15 @@
   (setq visible-bell t)
   #+END_SRC
 
+* Help
+  Interactively show keybindings
+  #+BEGIN_SRC emacs-lisp
+    (use-package which-key
+      :diminish
+      (which-key-mode)
+      :config
+      (which-key-mode 1))
+  #+END_SRC
 * Navigation
   Save minibuffer history between sessions
   #+BEGIN_SRC emacs-lisp
