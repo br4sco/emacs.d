@@ -179,8 +179,8 @@
 
   Show cursors line and column position in modeline
   #+BEGIN_SRC emacs-lisp
-  (line-number-mode 1)
-  (column-number-mode 1)
+    (line-number-mode 1)
+    (column-number-mode 1)
   #+END_SRC
 
   Wrap long lines at word boundaries
@@ -362,6 +362,16 @@
               (lambda () (local-set-key (kbd "C-l") 'comint-clear-buffer)))
   #+END_SRC
 
+  Bash completion
+  #+BEGIN_SRC emacs-lisp
+    (use-package bash-completion
+      :init (bash-completion-setup))
+  #+END_SRC
+
+  Error matching in shell
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
+  #+END_SRC
 * Terminal
  Spawn external terminals
  #+BEGIN_SRC emacs-lisp
