@@ -119,15 +119,6 @@
        ("M-/" . company-yasnippet))
    #+END_SRC
 
-** Editorconfig
-   Respect .eitorconfig files
-   #+BEGIN_SRC emacs-lisp
-     (use-package editorconfig
-       :diminish
-       (editorconfig-mode)
-       :config
-       (editorconfig-mode 1))
-   #+END_SRC
 * Search and Replace
   Make space in isearch represent the following regexp
   #+BEGIN_SRC emacs-lisp
@@ -297,7 +288,7 @@
       :diminish
       (projectile-mode)
       :custom
-      (projectile-tags-command "/usr/bin/ctags -Re -f \"%s\" %s \"%s\"")
+      (projectile-tags-command "ctags -Re -f \"%s\" %s \"%s\"")
       (projectile-use-git-grep t)
       :bind
       (([remap projectile-replace] . projectile-replace-regexp)
@@ -443,4 +434,13 @@
   Code folding
   #+BEGIN_SRC emacs-lisp
     (add-hook 'modelyze-mode-hook #'hs-minor-mode)
+  #+END_SRC
+* Editorconfig
+  Respect .eitorconfig files
+  #+BEGIN_SRC emacs-lisp
+    (use-package editorconfig
+      :diminish
+      (editorconfig-mode)
+      :config
+      (editorconfig-mode 1))
   #+END_SRC
