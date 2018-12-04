@@ -89,6 +89,23 @@
     (global-set-key (kbd "M-t p") 'transpose-params)
   #+END_SRC
 
+** Yasnippet
+   And Yasnippet for snippets
+   #+BEGIN_SRC emacs-lisp
+     (use-package yasnippet
+       :init
+       (yas-global-mode 1)
+       :custom
+       (yas-snippet-dirs '("~/.emacs.d/snippets"))
+       :diminish (yas-minor-mode . " Ⓨ")
+       :config
+       (setq yas-prompt-functions
+             (cons 'yas-ido-prompt
+                   (cl-delete 'yas-ido-prompt yas-prompt-functions)))
+       :bind
+       ("M-/" . company-yasnippet))
+   #+END_SRC
+
 ** Company
    We use Company for completion
    #+BEGIN_SRC emacs-lisp
@@ -98,25 +115,20 @@
        :custom
        (company-dabbrev-downcase nil)
        (company-idle-delay t)
+       (company-minimum-prefix-length 2)
+       (company-selection-wrap-around t)
+       (company-require-match nil)
+       (company-dabbrev-ignore-case nil)
        (company-transformers '(company-sort-by-occurrence))
+       (company-show-numbers t)
        :config
-       (add-hook 'after-init-hook 'global-company-mode))
-   #+END_SRC
+       (global-company-mode 1)
 
-** Yasnippet
-   And Yasnippet for snippets
-   #+BEGIN_SRC emacs-lisp
-     (use-package yasnippet
-       :init
-       (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-       :diminish (yas-minor-mode)
-       :config
-       (yas-global-mode)
-       (setq yas-prompt-functions
-	     (cons 'yas-ido-prompt
-		   (cl-delete 'yas-ido-prompt yas-prompt-functions)))
-       :bind
-       ("M-/" . company-yasnippet))
+       ;; use numbers 0-9 to select company completion candidates
+       (let ((map company-active-map))
+         (mapc (lambda (x) (define-key map (format "%d" x)
+                             `(lambda () (interactive) (company-complete-number ,x))))
+               (number-sequence 0 9))))
    #+END_SRC
 
 * Search and Replace
