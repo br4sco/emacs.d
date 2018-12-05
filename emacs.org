@@ -249,7 +249,7 @@
 			 :bind
 			 (("C-x o" . ace-window))
 			 :custom
-			 (aw-dispatch-always nil))
+			 (aw-dispatch-always t))
    #+END_SRC
 
 ** IBuffer
