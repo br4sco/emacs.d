@@ -448,7 +448,7 @@
     (add-hook 'modelyze-mode-hook #'hs-minor-mode)
   #+END_SRC
 * Editorconfig
-  Respect .eitorconfig files
+  Respect .eitorconfig files, placed last for a reason
   #+BEGIN_SRC emacs-lisp
     (use-package editorconfig
       :diminish
