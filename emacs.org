@@ -242,6 +242,11 @@
     (add-hook 'prog-mode-hook #'hs-minor-mode)
   #+END_SRC
 
+  Don't ask us if we want to revert tags
+  #+BEGIN_SRC emacs-lisp
+    (setq tags-revert-without-query 1)
+  #+END_SRC
+
 ** Ace-Window
    We use ace-window for better window jumping
    #+BEGIN_SRC emacs-lisp
