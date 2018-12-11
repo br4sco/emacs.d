@@ -384,6 +384,18 @@
   #+BEGIN_SRC emacs-lisp
     (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
   #+END_SRC
+
+* Compiling
+Always save before compiling
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-ask-about-save nil)
+#+END_SRC
+
+Don't ask to kill current compilation if a new one is started, just do it!
+#+BEGIN_SRC emacs-lisp
+  (setq compilation-always-kill nil)
+#+END_SRC
+
 * Terminal
  Spawn external terminals
  #+BEGIN_SRC emacs-lisp
