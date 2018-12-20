@@ -89,6 +89,32 @@
     (global-set-key (kbd "M-t p") 'transpose-params)
   #+END_SRC
 
+
+  Better comment-dwim
+  #+BEGIN_SRC emacs-lisp
+    (defun xah-comment-dwim ()
+      "Like `comment-dwim', but toggle comment if cursor is not at end of line.
+
+    URL `http://ergoemacs.org/emacs/emacs_toggle_comment_by_line.html'
+    Version 2016-10-25"
+      (interactive)
+      (if (region-active-p)
+          (comment-dwim nil)
+        (let (($lbp (line-beginning-position))
+              ($lep (line-end-position)))
+          (if (eq $lbp $lep)
+              (progn
+                (comment-dwim nil))
+            (if (eq (point) $lep)
+                (progn
+                  (comment-dwim nil))
+              (progn
+                (comment-or-uncomment-region $lbp $lep)
+                (forward-line )))))))
+
+    (global-set-key (kbd "M-;") 'xah-comment-dwim)
+  #+END_SRC
+
 ** Yasnippet
    And Yasnippet for snippets
    #+BEGIN_SRC emacs-lisp
@@ -147,8 +173,8 @@
 
   Cases sensitive by default
   #+BEGIN_SRC emacs-lisp
-    (setq case-fold-search nil)
-    (setq case-replace nil)
+    (setq case-fold-search t)
+    (setq case-replace t)
   #+END_SRC
 ** Grep
    Make grep buffer editable
