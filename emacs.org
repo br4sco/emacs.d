@@ -150,6 +150,11 @@
   (global-set-key (kbd "C-M-r") 'isearch-backward)
   #+END_SRC
 
+  Cases sensitive by default
+  #+BEGIN_SRC emacs-lisp
+    (setq case-fold-search nil)
+    (setq case-replace nil)
+  #+END_SRC
 ** Grep
    Make grep buffer editable
    #+BEGIN_SRC emacs-lisp
