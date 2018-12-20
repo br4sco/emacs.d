@@ -157,6 +157,11 @@
                (number-sequence 0 9))))
    #+END_SRC
 
+* Dired
+  Search for filenames using C-s/r
+  #+BEGIN_SRC emacs-lisp
+    (setq dired-isearch-filenames t)
+  #+END_SRC
 * Search and Replace
   Make space in isearch represent the following regexp
   #+BEGIN_SRC emacs-lisp
