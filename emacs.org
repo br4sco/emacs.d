@@ -523,6 +523,16 @@ Don't ask to kill current compilation if a new one is started, just do it!
                   '(modelyze "^\\(.+\\) \\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\) error: " 1 2 (3 . 4) 2))
    #+END_SRC
 
+   Set compile keybinding and default compiler
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'modelyze-mode-hook
+               (lambda () (local-set-key (kbd "C-c C-c") #'compile)))
+
+     (add-hook 'modelyze-mode-hook
+               (lambda ()
+                 (set (make-local-variable 'compile-command)
+                      (format "moz %s" (file-name-nondirectory buffer-file-name)))))
+   #+END_SRC
   Code folding
   #+BEGIN_SRC emacs-lisp
     (add-hook 'modelyze-mode-hook #'hs-minor-mode)
