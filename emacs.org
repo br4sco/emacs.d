@@ -286,11 +286,12 @@
 ** Ace-Window
    We use ace-window for better window jumping
    #+BEGIN_SRC emacs-lisp
-		 (use-package ace-window
-			 :bind
-			 (("C-x o" . ace-window))
-			 :custom
-			 (aw-dispatch-always nil))
+     (use-package ace-window
+             :bind
+             (("C-x o" . ace-window))
+             :custom
+             (aw-dispatch-always nil)
+             (aw-scope frame))
    #+END_SRC
 
 ** IBuffer
