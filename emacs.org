@@ -507,6 +507,19 @@ Don't ask to kill current compilation if a new one is started, just do it!
              (add-hook 'tuareg-mode-hook 'utop-minor-mode)
              ))
    #+END_SRC
+** Matlab
+   #+BEGIN_SRC emacs-lisp
+     (use-package matlab-mode
+       :ensure t
+       :config
+       (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+       (add-to-list
+        'auto-mode-alist
+        '("\\.m$" . matlab-mode))
+       (setq matlab-indent-function nil)
+       (setq matlab-auto-fill nil)
+       (setq matlab-shell-command "matlab"))
+   #+END_SRC
 ** Modelyze
    Major mode definition
    #+BEGIN_SRC emacs-lisp
