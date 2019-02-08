@@ -549,6 +549,10 @@ Don't ask to kill current compilation if a new one is started, just do it!
      (add-to-list 'compilation-error-regexp-alist 'modelyze)
      (add-to-list 'compilation-error-regexp-alist-alist
                   '(modelyze "^\\(.+\\) \\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\) error: " 1 2 (3 . 4) 2))
+     ;; from modelica backend
+     (add-to-list 'compilation-error-regexp-alist-alist
+                  '(modelyze "^\\[\\(.+\\):\\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\):writable\\] Error: " 1 2 (3 . 4) 2))
+
    #+END_SRC
 
    Set compile keybinding and default compiler
@@ -565,6 +569,12 @@ Don't ask to kill current compilation if a new one is started, just do it!
   #+BEGIN_SRC emacs-lisp
     (add-hook 'modelyze-mode-hook #'hs-minor-mode)
   #+END_SRC
+
+** Juia
+   #+BEGIN_SRC emacs-lisp
+     (use-package julia-mode
+       :ensure t)
+   #+END_SRC
 * Editorconfig
   Respect .eitorconfig files, placed last for a reason
   #+BEGIN_SRC emacs-lisp
