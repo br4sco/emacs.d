@@ -291,7 +291,7 @@
              (("C-x o" . ace-window))
              :custom
              (aw-dispatch-always nil)
-             (aw-scope frame))
+             (aw-scope 'frame))
    #+END_SRC
 
 ** IBuffer
@@ -461,6 +461,7 @@ Don't ask to kill current compilation if a new one is started, just do it!
   Improved pdf reader in emacs
   #+BEGIN_SRC emacs-lisp
     (use-package pdf-tools
+     :ensure t
      :config
      ;; initialise
      (pdf-tools-install)
@@ -549,9 +550,10 @@ Don't ask to kill current compilation if a new one is started, just do it!
      (add-to-list 'compilation-error-regexp-alist 'modelyze)
      (add-to-list 'compilation-error-regexp-alist-alist
                   '(modelyze "^\\(.+\\) \\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\) error: " 1 2 (3 . 4) 2))
-     ;; from modelica backend
-     (add-to-list 'compilation-error-regexp-alist-alist
-                  '(modelyze "^\\[\\(.+\\):\\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\):writable\\] Error: " 1 2 (3 . 4) 2))
+
+     ;; Modelica backend
+     ;; (add-to-list 'compilation-error-regexp-alist-alist
+                  ;; '(modelyze "^\\[\\(.+\\):\\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\):writable\\] Error: " 1 2 (3 . 4) 2))
 
    #+END_SRC
 
