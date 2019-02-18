@@ -4,18 +4,6 @@
 ;; This file loads Org-mode and then loads the rest of the Emacs initialization from Emacs Lisp
 ;; embedded in the literate Org-mode file: readme.org
 ;;
-;;; Code:
-;; (require 'package)
-;; (setq package-enable-at-startup nil)
-;; (unless (assoc-default "melpa" package-archives)
-  ;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
-;; (package-initialize)
-
-;; Bootstrap use-package
-;; (unless (package-installed-p 'use-package)
-  ;; (package-refresh-contents)
-  ;; (package-install 'use-package))
-
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
