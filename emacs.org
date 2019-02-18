@@ -181,6 +181,7 @@
     (setq case-fold-search t)
     (setq case-replace t)
   #+END_SRC
+
 ** Grep
    Make grep buffer editable
    #+BEGIN_SRC emacs-lisp
@@ -426,6 +427,11 @@
     (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
   #+END_SRC
 
+  Ansi color
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  #+END_SRC
+
 * Compiling
 Always save before compiling
 #+BEGIN_SRC emacs-lisp
@@ -535,7 +541,7 @@ Don't ask to kill current compilation if a new one is started, just do it!
        ;; Faces
        '(("\\_<\\(error\\)\\_>" . font-lock-warning-face)
          ("\\_<\\(\\(?:fals\\|tru\\)e\\)\\_>" . font-lock-constant-face)
-         ("\\_<\\(Array\\|DAESolver\\|Map\\|NLEQSolver\\|Set\\|fst\\|peval\\|snd\\)\\_>" . font-lock-builtin-face)
+         ("\\_<\\(Array\\|DAESolver\\|Map\\|NLEQSolver\\|Set\\|fst\\|peval\\|snd\\|sval\\)\\_>" . font-lock-builtin-face)
          ("\\_<<?\\(\\?\\|Bool\\|Int\\|Real\\|String\\)>?\\_>" . (1 font-lock-type-face))
          ("!" . font-lock-negation-char-face))
 
