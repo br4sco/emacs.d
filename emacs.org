@@ -5,11 +5,6 @@
 * Use-Package
   We start by configuring use-package
 
-  We want to ensure that all packages are installed
-  #+BEGIN_SRC emacs-lisp
-  (setq use-package-always-ensure t)
-  #+END_SRC
-
   These packages allows us the diminish and bind macro with use-package
   #+BEGIN_SRC emacs-lisp
   (use-package diminish)
@@ -467,7 +462,6 @@ Don't ask to kill current compilation if a new one is started, just do it!
   Improved pdf reader in emacs
   #+BEGIN_SRC emacs-lisp
     (use-package pdf-tools
-     :ensure t
      :config
      ;; initialise
      (pdf-tools-install)
@@ -491,7 +485,6 @@ Don't ask to kill current compilation if a new one is started, just do it!
    #+BEGIN_SRC emacs-lisp
       (and (require 'cl)
            (use-package tuareg
-             :ensure t
              :config
              (add-hook 'tuareg-mode-hook #'electric-pair-local-mode)
              ;; (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
@@ -501,14 +494,12 @@ Don't ask to kill current compilation if a new one is started, just do it!
                            auto-mode-alist)))
 
            (use-package merlin
-             :ensure t
              :config
              (add-hook 'tuareg-mode-hook 'merlin-mode)
              (add-hook 'merlin-mode-hook #'company-mode)
              (setq merlin-error-after-save nil))
 
            (use-package utop
-             :ensure t
              :config
              (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
              (add-hook 'tuareg-mode-hook 'utop-minor-mode)
@@ -517,7 +508,6 @@ Don't ask to kill current compilation if a new one is started, just do it!
 ** COMMENT Matlab
    #+BEGIN_SRC emacs-lisp
      (use-package matlab-mode
-       :ensure t
        :config
        (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
        (add-to-list
@@ -580,8 +570,7 @@ Don't ask to kill current compilation if a new one is started, just do it!
 
 ** Juia
    #+BEGIN_SRC emacs-lisp
-     (use-package julia-mode
-       :ensure t)
+     (use-package julia-mode)
    #+END_SRC
 * Editorconfig
   Respect .eitorconfig files, placed last for a reason
