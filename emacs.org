@@ -149,28 +149,13 @@
                              `(lambda () (interactive) (company-complete-number ,x))))
                (number-sequence 0 9))))
    #+END_SRC
-
-* Autocompletion
-  We use ivy and counsel for minibuffer completion
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package ivy
-      :config
-      (ivy-mode 1)
-      (counsel-mode 1))
-  #+END_SRC
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package counsel-projectile
-      :config
-      (counsel-projectile-mode 1))
-  #+END_SRC
-
+   
 * Dired
   Search for filenames using C-s/r
   #+BEGIN_SRC emacs-lisp
     (setq dired-isearch-filenames t)
   #+END_SRC
+
 * Search and Replace
   Make space in isearch represent the following regexp
   #+BEGIN_SRC emacs-lisp
