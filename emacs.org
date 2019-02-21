@@ -149,7 +149,7 @@
                              `(lambda () (interactive) (company-complete-number ,x))))
                (number-sequence 0 9))))
    #+END_SRC
-   
+
 * Dired
   Search for filenames using C-s/r
   #+BEGIN_SRC emacs-lisp
@@ -506,6 +506,20 @@ Don't ask to kill current compilation if a new one is started, just do it!
        (setq matlab-auto-fill nil)
        (setq matlab-shell-command "matlab"))
    #+END_SRC
+
+** Juia
+   #+BEGIN_SRC emacs-lisp
+     (use-package julia-mode)
+   #+END_SRC
+
+** JS
+   Error matching for eslint
+   #+BEGIN_SRC emacs-lisp
+     (use-package compile-eslint
+       :straight (compile-eslint :host github :repo "Fuco1/compile-eslint")
+       :config
+       (push 'eslint compilation-error-regexp-alist))
+   #+END_SRC
 ** Modelyze
    Major mode definition
    #+BEGIN_SRC emacs-lisp
@@ -532,10 +546,9 @@ Don't ask to kill current compilation if a new one is started, just do it!
 
    Error matching regexp
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'compilation-error-regexp-alist 'modelyze)
-     (add-to-list 'compilation-error-regexp-alist-alist
-                  '(modelyze "^\\(.+\\) \\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\) error: " 1 2 (3 . 4) 2))
-
+     (push 'modelyze compilation-error-regexp-alist)
+     (push '(modelyze "^\\(.+\\) \\([0-9]+\\):\\([0-9]+\\)-\\([0-9]+\\):\\([0-9]+\\) error: " 1 2 (3 . 4) 2)
+                  compilation-error-regexp-alist-alist)
    #+END_SRC
 
    Set compile keybinding and default compiler
@@ -552,20 +565,6 @@ Don't ask to kill current compilation if a new one is started, just do it!
   #+BEGIN_SRC emacs-lisp
     (add-hook 'modelyze-mode-hook #'hs-minor-mode)
   #+END_SRC
-
-** Juia
-   #+BEGIN_SRC emacs-lisp
-     (use-package julia-mode)
-   #+END_SRC
-
-** JS
-   Error matching for eslint
-   #+BEGIN_SRC emacs-lisp
-     (use-package compile-eslint
-       :straight (compile-eslint :host github :repo "Fuco1/compile-eslint")
-       :config
-       (push 'eslint compilation-error-regexp-alist))
-   #+END_SRC
 
 * Editorconfig
   Respect .eitorconfig files, placed last for a reason
