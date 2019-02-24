@@ -6,7 +6,6 @@
   These packages allows us the diminish and bind macro with use-package
   #+BEGIN_SRC emacs-lisp
   (use-package diminish)
-
   (use-package bind-key)
   #+END_SRC
 
@@ -23,54 +22,54 @@
 
   Auto insert matching pair
   #+BEGIN_SRC emacs-lisp
-  (electric-pair-mode 1)
+    (electric-pair-mode 1)
   #+END_SRC
 
   Make movement respect CamelCase and snake_case
   #+BEGIN_SRC emacs-lisp
-  (global-subword-mode 1)
+    (global-subword-mode 1)
   #+END_SRC
 
   Overwrite selected text
   #+BEGIN_SRC emacs-lisp
-  (delete-selection-mode 1)
+    (delete-selection-mode 1)
   #+END_SRC
 
   Remember cursor position from last edit
   #+BEGIN_SRC emacs-lisp
-  (save-place-mode 1)
+    (save-place-mode 1)
   #+END_SRC
 
   Set UTF-8 as default encoding
   #+BEGIN_SRC emacs-lisp
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8)
+    (set-language-environment "UTF-8")
+    (set-default-coding-systems 'utf-8)
   #+END_SRC
 
   Disable automatic backups
   #+BEGIN_SRC emacs-lisp
-  (setq make-backup-files nil)
-  (setq auto-save-default nil)
+    (setq make-backup-files nil)
+    (setq auto-save-default nil)
   #+END_SRC
 
   Automatically update buffer if underlying file changes
   #+BEGIN_SRC emacs-lisp
-  (global-auto-revert-mode 1)
+    (global-auto-revert-mode 1)
   #+END_SRC
 
   Yank at point instead of at click
   #+BEGIN_SRC emacs-lisp
-  (setq mouse-yank-at-point t)
+    (setq mouse-yank-at-point t)
   #+END_SRC
 
   Ensure final newline
   #+BEGIN_SRC emacs-lisp
-  (setq require-final-newline t)
+    (setq require-final-newline t)
   #+END_SRC
 
   Zap up to char
   #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "M-z") 'zap-up-to-char)
+    (global-set-key (kbd "M-z") 'zap-up-to-char)
   #+END_SRC
 
   Transpose keymappings
@@ -158,9 +157,14 @@
     (setq dired-isearch-filenames t)
   #+END_SRC
 
-  Delete associated buffers when deleting files
+  Delete corresponding buffers when deleting files
   #+BEGIN_SRC emacs-lisp
     (setq dired-clean-up-buffers-too t)
+  #+END_SRC
+
+  Move files between split panes
+  #+BEGIN_SRC emacs-lisp
+    (setq dired-dwim-target t)
   #+END_SRC
 
 * Search and Replace
@@ -221,7 +225,7 @@
 
   Show trailing whitespaces
   #+BEGIN_SRC emacs-lisp
-  (setq-default show-trailing-whitespace t)
+    (setq-default show-trailing-whitespace t)
   #+END_SRC
 
   Hide some ui elements
@@ -415,6 +419,18 @@
       :init (bash-completion-setup))
   #+END_SRC
 
+  #+BEGIN_SRC emacs-lisp
+    (defun comint-delchar-or-eof-or-kill-buffer (arg)
+      (interactive "p")
+      (if (null (get-buffer-process (current-buffer)))
+          (kill-buffer)
+        (comint-delchar-or-maybe-eof arg)))
+
+    (add-hook 'shell-mode-hook
+              (lambda ()
+                (define-key shell-mode-map (kbd "C-d") 'comint-delchar-or-eof-or-kill-buffer)))
+  #+END_SRC
+
   Error matching in shell
   #+BEGIN_SRC emacs-lisp
     (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
@@ -423,6 +439,11 @@
   Ansi color
   #+BEGIN_SRC emacs-lisp
     (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  #+END_SRC
+
+  Don't show trailing whitespaces
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'shell-mode-hook (lambda () (setq-default show-trailing-whitespace nil)))
   #+END_SRC
 
 * Compiling
@@ -470,6 +491,7 @@ Don't ask to kill current compilation if a new one is started, just do it!
      ;; use normal isearch
      (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
   #+END_SRC
+
 * Languages
   Language specific configurations
 ** Ocaml
