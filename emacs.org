@@ -142,18 +142,25 @@
        (company-show-numbers t)
        :config
        (global-company-mode 1)
+   #+END_SRC
 
-       ;; use numbers 0-9 to select company completion candidates
-       (let ((map company-active-map))
-         (mapc (lambda (x) (define-key map (format "%d" x)
-                             `(lambda () (interactive) (company-complete-number ,x))))
-               (number-sequence 0 9))))
+   Use numbers 0-9 to select company completion candidates
+   #+BEGIN_SRC emacs-lisp
+     (let ((map company-active-map))
+       (mapc (lambda (x) (define-key map (format "%d" x)
+                           `(lambda () (interactive) (company-complete-number ,x))))
+             (number-sequence 0 9))))
    #+END_SRC
 
 * Dired
   Search for filenames using C-s/r
   #+BEGIN_SRC emacs-lisp
     (setq dired-isearch-filenames t)
+  #+END_SRC
+
+  Delete associated buffers when deleting files
+  #+BEGIN_SRC emacs-lisp
+    (setq dired-clean-up-buffers-too t)
   #+END_SRC
 
 * Search and Replace
@@ -233,7 +240,7 @@
   (setq uniquify-buffer-name-style 'forward)
   #+END_SRC
 
-  Use vsible rather than audible bell
+  Use visible rather than audible bell
   #+BEGIN_SRC emacs-lisp
   (setq visible-bell t)
   #+END_SRC
@@ -247,6 +254,7 @@
       :config
       (which-key-mode 1))
   #+END_SRC
+
 * Navigation
   Save minibuffer history between sessions
   #+BEGIN_SRC emacs-lisp
@@ -317,7 +325,7 @@
 
    Alwasy create new buffer when filename doesn't correspond to file or directory
    #+BEGIN_SRC emacs-lisp
-  (setq ido-create-new-buffer 'always)
+   (setq ido-create-new-buffer 'always)
    #+END_SRC
 
 * Project settings
@@ -336,6 +344,7 @@
       (projectile-mode 1)
       (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map))
   #+END_SRC
+
 * GIT
   We use the Magit Git frontend
   #+BEGIN_SRC emacs-lisp
@@ -386,7 +395,7 @@
   (setq org-src-fontify-natively t)
   #+END_SRC
 
-* Shell
+* Shell and Eshell
   Setup paths
   #+BEGIN_SRC emacs-lisp
     (use-package exec-path-from-shell
@@ -520,6 +529,7 @@ Don't ask to kill current compilation if a new one is started, just do it!
        :config
        (push 'eslint compilation-error-regexp-alist))
    #+END_SRC
+
 ** Modelyze
    Major mode definition
    #+BEGIN_SRC emacs-lisp
