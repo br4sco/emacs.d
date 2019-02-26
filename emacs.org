@@ -183,8 +183,8 @@
 
   Cases sensitive by default
   #+BEGIN_SRC emacs-lisp
-    (setq case-fold-search t)
-    (setq case-replace t)
+    (setq case-fold-search nil)
+    (setq case-replace nil)
   #+END_SRC
 
 ** Grep
@@ -387,6 +387,11 @@
   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/custom.el")
     (load custom-file 'noerror)
+  #+END_SRC
+
+  Cleanup old buffers
+  #+BEGIN_SRC emacs-lisp
+    (midnight-mode)
   #+END_SRC
 * Org
   Don't ask if code block should be evaluated
