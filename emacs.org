@@ -352,7 +352,9 @@
 * GIT
   We use the Magit Git frontend
   #+BEGIN_SRC emacs-lisp
-    (use-package magit)
+    (use-package magit
+      :config
+      (setq magit-completing-read-function 'magit-ido-completing-read))
   #+END_SRC
 
 * Misc
