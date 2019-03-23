@@ -107,6 +107,12 @@
     (global-set-key (kbd "M-;") 'xah-comment-dwim)
   #+END_SRC
 
+** Narrow Region
+   #+BEGIN_SRC emacs-lisp
+     (use-package fancy-narrow
+       :config
+       (fancy-narrow-mode))
+   #+END_SRC
 ** Yasnippet
    And Yasnippet for snippets
    #+BEGIN_SRC emacs-lisp
@@ -532,7 +538,7 @@ Don't ask to kill current compilation if a new one is started, just do it!
              (add-hook 'tuareg-mode-hook 'utop-minor-mode)
              ))
    #+END_SRC
-** COMMENT Matlab
+** Matlab
    #+BEGIN_SRC emacs-lisp
      (use-package matlab-mode
        :config
@@ -542,7 +548,8 @@ Don't ask to kill current compilation if a new one is started, just do it!
         '("\\.m$" . matlab-mode))
        (setq matlab-indent-function nil)
        (setq matlab-auto-fill nil)
-       (setq matlab-shell-command "matlab"))
+       (setq matlab-shell-command "matlab")
+       (add-hook 'matlab-mode-hook '(auto-fill-mode nil)))
    #+END_SRC
 
 ** Juia
