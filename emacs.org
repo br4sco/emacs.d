@@ -412,6 +412,11 @@
   (setq org-src-fontify-natively t)
   #+END_SRC
 
+  Scale latex fragments
+  #+BEGIN_SRC emacs-lisp
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+  #+END_SRC
+
 * Shell
   Setup paths
   #+BEGIN_SRC emacs-lisp
