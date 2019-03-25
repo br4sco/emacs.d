@@ -617,6 +617,66 @@ Don't ask to kill current compilation if a new one is started, just do it!
     (add-hook 'modelyze-mode-hook #'hs-minor-mode)
   #+END_SRC
 
+** LaTeX
+   #+BEGIN_SRC emacs-lisp
+     (use-package auctex
+       :hook
+       (LaTeX-mode . LaTeX-math-mode)
+       (LaTeX-mode . turn-on-reftex)
+       ;; (LaTeX-mode . flyspell-mode)
+       :bind
+       (([remap fill-paragraph] . ales/fill-paragraph))
+       :custom
+       (TeX-auto-save t)
+       (TeX-parse-self t)
+       (TeX-source-correlate-method 'synctex)
+       (TeX-source-correlate-mode t)
+       (TeX-source-correlate-start-server t)
+       (reftex-plug-into-AUCTeX t)
+       (TeX-install-font-lock 'tex-font-setup)
+       ;; (TeX-view-program-selection '((output-pdf "Okular")))
+       :config
+       (setq-default TeX-master nil)
+
+       ;; Use pdf-tools to open PDF files
+       (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+             TeX-source-correlate-start-server t)
+
+       ;; Update PDF buffers after successful LaTeX runs
+       (add-hook 'TeX-after-compilation-finished-functions
+                 #'TeX-revert-document-buffer)
+
+       (defun ales/fill-paragraph (&optional P)
+         "When called with prefix argument call `fill-paragraph'.
+     Otherwise split the current paragraph into one sentence per line."
+         (interactive "P")
+         (if (not P)
+             (save-excursion
+               (let ((fill-column 12345678)) ;; relies on dynamic binding
+                 (fill-paragraph) ;; this will not work correctly if the paragraph is
+                 ;; longer than 12345678 characters (in which case the
+                 ;; file must be at least 12MB long. This is unlikely.)
+                 (let ((end (save-excursion
+                              (forward-paragraph 1)
+                              (backward-sentence)
+                              (point-marker))))  ;; remember where to stop
+                   (beginning-of-line)
+                   (while (progn (forward-sentence)
+                                 (<= (point) (marker-position end)))
+                     (just-one-space) ;; leaves only one space, point is after it
+                     (delete-char -1) ;; delete the space
+                     (newline)        ;; and insert a newline
+                     (LaTeX-indent-line) ;; I only use this in combination with late, so this makes sense
+                     ))))
+           ;; otherwise do ordinary fill paragraph
+           (fill-paragraph P)))
+       )
+
+     (use-package auctex-latexmk
+       :config
+       (auctex-latexmk-setup)
+       (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk"))))
+   #+END_SRC
 * Editorconfig
   Respect .eitorconfig files, placed last for a reason
   #+BEGIN_SRC emacs-lisp
