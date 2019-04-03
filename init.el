@@ -28,6 +28,10 @@
   :bind
   ("C-x C-m" . amx))
 
+(use-package magit
+  :config
+  (setq magit-completing-read-function 'magit-ido-completing-read))
+
 (use-package projectile
   :diminish
   (projectile-mode)
