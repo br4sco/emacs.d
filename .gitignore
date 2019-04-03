@@ -1,7 +1,9 @@
 *
 !.gitignore
-!emacs.org
 !init.el
+!/lisp/
+!/lisp/*
+!/lisp/**/*
 !/snippets/
 !/snippets/*
 !/snippets/**/*
