@@ -48,6 +48,42 @@
 (use-package ibuffer-projectile
   :init (add-hook 'ibuffer-hook #'ibuffer-projectile-set-filter-groups))
 
+(use-package yasnippet
+  :init
+  (yas-global-mode 1)
+  :custom
+  (yas-snippet-dirs '("~/.emacs.d/snippets"))
+  :diminish (yas-minor-mode)
+  :config
+  (setq yas-prompt-functions
+        (cons 'yas-ido-prompt
+              (cl-delete 'yas-ido-prompt yas-prompt-functions)))
+  :bind
+  ("M-/" . company-yasnippet))
+
+(use-package company
+  :diminish
+  (company-mode)
+  :custom
+  (company-dabbrev-downcase nil)
+  (company-idle-delay t)
+  (company-minimum-prefix-length 2)
+  (company-selection-wrap-around t)
+  (company-require-match nil)
+  (company-dabbrev-ignore-case nil)
+  (company-transformers '(company-sort-by-occurrence))
+  (company-show-numbers t)
+  :config
+  (global-company-mode 1)
+
+  (let ((map company-active-map))
+    (mapc (lambda (x) (define-key map (format "%d" x)
+                        `(lambda () (interactive) (company-complete-number ,x))))
+          (number-sequence 0 9))))
+
+(use-package bash-completion
+  :init (bash-completion-setup))
+
 (use-package editorconfig
   :diminish
   (editorconfig-mode)
