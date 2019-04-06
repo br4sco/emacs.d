@@ -10,9 +10,9 @@
 (setq modelyze-builtins '("Array" "Map" "Set" "fst" "snd" "sval" "lift" "sym" "dprint" "symstr" "fwrite" "DAESolver" "NLEQSolver"))
 (setq modelyze-types '("?" "Bool" "Int" "Real" "String"))
 
-(setq modelyze--errors-regex (regexp-opt modelyze-errors 'symbols))
-(setq modelyze--constants-regex (regexp-opt modelyze-constants 'symbols))
-(setq modelyze--builtins-regex (regexp-opt modelyze-builtins 'symbols))
+(setq modelyze--errors-regex (regexp-opt modelyze-errors 'words))
+(setq modelyze--constants-regex (regexp-opt modelyze-constants 'words))
+(setq modelyze--builtins-regex (regexp-opt modelyze-builtins 'words))
 (setq modelyze--types-regex (regexp-opt modelyze-types 'words))
 
 (require 'generic-x)
