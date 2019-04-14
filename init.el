@@ -80,9 +80,6 @@
     (mapc (lambda (x) (define-key map (format "%d" x)
                         `(lambda () (interactive) (company-complete-number ,x))))
           (number-sequence 0 9))))
- 
-(use-package bash-completion
-  :init (bash-completion-setup))
 
 (use-package pdf-tools
   :config (pdf-tools-install))
