@@ -9,6 +9,7 @@
 (require 'init-tramp)
 (require 'init-compile)
 (require 'init-modelyze)
+(require 'init-shell)
 (require 'init-keybindings)
 
 (use-package diminish)
