@@ -85,6 +85,8 @@
 (use-package pdf-tools
   :config (pdf-tools-install))
 
+(use-package tuareg)
+
 (use-package editorconfig
   :diminish
   (editorconfig-mode)
