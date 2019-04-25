@@ -86,8 +86,8 @@
                         `(lambda () (interactive) (company-complete-number ,x))))
           (number-sequence 0 9))))
 
-;; (use-package pdf-tools
-;;  :config (pdf-tools-install))
+(use-package pdf-tools
+ :config (pdf-tools-install))
 
 (use-package nix-mode)
 
