@@ -10,6 +10,6 @@
 (show-paren-mode 1)
 (global-visual-line-mode 1)
 
-(load-theme 'tsdh-ligh)
+(load-theme 'tsdh-light)
 
 (provide 'init-appearance)
