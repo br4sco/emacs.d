@@ -33,6 +33,10 @@
   :config
   (setq magit-completing-read-function 'magit-ido-completing-read))
 
+(use-package wgrep)
+
+(use-package projectile-ripgrep)
+
 (use-package projectile
   :diminish
   (projectile-mode)
@@ -82,8 +86,10 @@
                         `(lambda () (interactive) (company-complete-number ,x))))
           (number-sequence 0 9))))
 
-(use-package pdf-tools
-  :config (pdf-tools-install))
+;; (use-package pdf-tools
+;;  :config (pdf-tools-install))
+
+(use-package nix-mode)
 
 (use-package tuareg)
 
