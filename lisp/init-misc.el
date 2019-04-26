@@ -9,6 +9,7 @@
   (put 'scroll-left 'disabled nil)
   (put 'dired-find-alternate-file 'disabled nil))
 
+(xterm-mouse-mode 1)
 (midnight-mode 1)
 
 (provide 'init-misc)

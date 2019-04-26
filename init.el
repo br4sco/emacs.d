@@ -15,9 +15,9 @@
 (use-package diminish)
 (use-package bind-key)
 
-(use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+  ;; :config
+  ;; (exec-path-from-shell-initialize))
 
 (use-package ido-completing-read+
   :config
@@ -29,29 +29,29 @@
   :bind
   ("C-x C-m" . amx))
 
-(use-package magit
-  :config
-  (setq magit-completing-read-function 'magit-ido-completing-read))
+;; (use-package magit
+;;   :config
+;;   (setq magit-completing-read-function 'magit-ido-completing-read))
 
 (use-package wgrep)
 
-(use-package projectile-ripgrep)
+;; (use-package projectile-ripgrep)
 
-(use-package projectile
-  :diminish
-  (projectile-mode)
-  :custom
-  (projectile-tags-command "ctags -Re -f \"%s\" %s \"%s\"")
-  (projectile-use-git-grep t)
-  :bind
-  (([remap projectile-replace] . projectile-replace-regexp)
-   ([remap projectile-run-term] . terminal-here-project-launch))
-  :config
-  (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map))
+;; (use-package projectile
+;;   :diminish
+;;   (projectile-mode)
+;;   :custom
+;;   (projectile-tags-command "ctags -Re -f \"%s\" %s \"%s\"")
+;;   (projectile-use-git-grep t)
+;;   :bind
+;;   (([remap projectile-replace] . projectile-replace-regexp)
+;;    ([remap projectile-run-term] . terminal-here-project-launch))
+;;   :config
+;;   (projectile-mode 1)
+;;   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map))
 
-(use-package ibuffer-projectile
-  :init (add-hook 'ibuffer-hook #'ibuffer-projectile-set-filter-groups))
+;; (use-package ibuffer-projectile
+;;   :init (add-hook 'ibuffer-hook #'ibuffer-projectile-set-filter-groups))
 
 (use-package yasnippet
   :init
@@ -81,17 +81,24 @@
   :config
   (global-company-mode 1)
 
-  (let ((map company-active-map))
-    (mapc (lambda (x) (define-key map (format "%d" x)
-                        `(lambda () (interactive) (company-complete-number ,x))))
-          (number-sequence 0 9))))
+  ;; (let ((map company-active-map))
+    ;; (mapc (lambda (x) (define-key map (format "%d" x)
+                        ;; `(lambda () (interactive) (company-complete-number ,x))))
+          ;; (number-sequence 0 9)))
+  )
 
-(use-package pdf-tools
- :config (pdf-tools-install))
+;; (use-package pdf-tools
+ ;; :config (pdf-tools-install))
 
 (use-package nix-mode)
 
-(use-package tuareg)
+(use-package fish-mode)
+
+;; (use-package tuareg)
+
+;; (use-package caml-mode
+  ;; :config
+  ;; (add-to-list 'auto-mode-alist '("\\.ml[iylp]?$" . caml-mode))
 
 (use-package editorconfig
   :diminish
